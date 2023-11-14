@@ -39,7 +39,7 @@ def stitch_all(folder_path, image_list):
     top_padding = 20
     bottom_padding = 20
 
-    for filename in tqdm(image_list):
+    for filename in image_list:
         image = cv2.imread(filename)
 
         if image is not None:
@@ -110,6 +110,7 @@ def get_document(image, name):
     with open(output_pdf, 'wb') as pdf_output:
         pdf_output.write(img2pdf.convert(imgs))
 
+    print(f"Output Generated -> {output_pdf}")
 
 
 def process_image(page, counter, output_dir, output_masks):
@@ -130,8 +131,8 @@ def process_image(page, counter, output_dir, output_masks):
     upper_color = np.array(upper_color, dtype=np.uint8)
 
     #Values for test PDF
-    # lower_color = np.array([40,115, 70], dtype=np.uint8)
-    # upper_color = np.array([110, 185, 150], dtype=np.uint8)
+    lower_color = np.array([40,115, 70], dtype=np.uint8)
+    upper_color = np.array([110, 185, 150], dtype=np.uint8)
     # print(lower_color, upper_color)
 
     # Threshold the image to isolate the specified color
@@ -167,7 +168,7 @@ def select_pdf():
 
 
 if __name__=="__main__":
-
+    shutil.rmtree('output')
     input_pdf = select_pdf()
     if not input_pdf:
         print('No PDF selected')
@@ -180,7 +181,7 @@ if __name__=="__main__":
     os.makedirs(output_dir, exist_ok=True)
     os.makedirs(output_images, exist_ok=True)
     os.makedirs(output_masks, exist_ok=True)
-    print(output_dir, output_masks, output_images)
+    # print(output_dir, output_masks, output_images)
 
     pdf_document = fitz.open(input_pdf)
     total_pages = pdf_document.page_count
@@ -199,3 +200,5 @@ if __name__=="__main__":
     combined_image = stitch_all(output_images, image_paths)
     get_document(combined_image, name)
     shutil.rmtree('output')
+    if os.path.exists('output_images'):
+        shutil.rmtree('output_images')
