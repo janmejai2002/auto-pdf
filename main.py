@@ -168,7 +168,8 @@ def select_pdf():
 
 
 if __name__=="__main__":
-    shutil.rmtree('output')
+    if os.path.exists('output'):
+        shutil.rmtree('output')
     input_pdf = select_pdf()
     if not input_pdf:
         print('No PDF selected')
