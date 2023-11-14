@@ -1,13 +1,10 @@
 # Auto-PDF
 
 The program identifies rectangular outline based annotations from a PDF, crops them out and compiles them into a new document.
-Output
+
+
+
 ![Output](https://i.ibb.co/mNCtWjd/image.png)
-
-<a href="https://ibb.co/bz5dNRC"><img src="https://i.ibb.co/hDF8214/image.png" alt="image" border="0"></a>
-
-
-
 
 
 ## How to run
